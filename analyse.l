@@ -4,7 +4,7 @@ H			[a-fA-F0-9]
 E			[Ee][+-]?{D}+
 FS			(f|F|l|L)
 IS			(u|U|l|L)*
-FUNCTION		"memcpy"|"printf"|"fprintf"|"exit"|"malloc"|"free"|"calloc"|"realloc"|"assert"|"memset"|"longjmp"|"setjmp"|"strcmp"|"strncmp"|"strcpy"|"strncpy"|"rand"|"srand"|"time"|"strlen"|"NULL"|"stdin"|"stderr"|"EXIT_SUCCESS"|"EXIT_FAILURE"|"main"|"argc"|"argv"|"atoi"|"atof"|"strtol"|"true"|"false"|"bool"
+FUNCTION		"memcpy"|"printf"|"fprintf"|"exit"|"malloc"|"free"|"calloc"|"realloc"|"assert"|"memset"|"longjmp"|"setjmp"|"strcmp"|"strncmp"|"strcpy"|"strncpy"|"rand"|"srand"|"time"|"strlen"|"NULL"|"stdin"|"stderr"|"EXIT_SUCCESS"|"EXIT_FAILURE"|"main"|"argc"|"argv"|"atoi"|"atof"|"strtol"|"true"|"false"|"bool"|"ssize_t"|"size_t"|"O_RDONLY"|"SEEK_END"|"SEEK_SET"|"O_WRONLY"|"O_TRUNC"|"O_CREAT"|"DEBUG"|"__FILE__"|"__FUNCTION__"|"__LINE__"|"write"|"read"|"close"|"lseek"|"seek"|"perror"|"open"
 
 %{
 #include <stdio.h>
@@ -57,8 +57,8 @@ static int byPass = 0;
 "volatile"		{ fprintf(currentFile, "%s", yytext); }
 "while"			{ fprintf(currentFile, "%s", yytext); }
 {FUNCTION}		{ fprintf(currentFile, "%s", yytext); }
-{L}({L}|{D})*		{ if(byPass)printf("Bypass :%s\n", yytext);char * reso = malloc(sizeof(char)*(strlen(yytext) + 1)); memcpy(reso, yytext, sizeof(char)*(strlen(yytext) + 1));cons * res = get_from_key(list, reso, isAuto, byPass); fprintf(currentFile, "%s", res->second); if(byPass==1)byPass=0;}
-#"define"|"ifdef"|"ifndef" {fprintf(currentFile, "/*%s*/", yytext);byPass=1;}
+{L}({L}|{D})*		{ char * reso = malloc(sizeof(char)*(strlen(yytext) + 1)); memcpy(reso, yytext, sizeof(char)*(strlen(yytext) + 1));cons * res = get_from_key(list, reso, isAuto, byPass); fprintf(currentFile, "%s", res->second); if(byPass==1)byPass=0;}
+#"define"|"ifdef"|"ifndef" {fprintf(currentFile, "%s", yytext);byPass=1;}
 #{L}({L}|{D})* {fprintf(currentFile, "%s", yytext);}
 \<{L}({L}|{D}|\/)*".h"\> {fprintf(currentFile, "%s", yytext);}
 
