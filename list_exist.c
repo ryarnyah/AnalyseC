@@ -96,6 +96,10 @@ cons * get_from_key(list_exist list, char * key, int isAuto, int byPass)
 	}
       vecteur_ecrire(list, vecteur_nombre_elements(list), res);
     }
+  else if(byPass)
+    {
+      res->toSave = !byPass;
+    }
   return res;
 }
 
