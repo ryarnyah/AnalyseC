@@ -87,13 +87,14 @@ cons * get_from_key(list_exist list, char * key, int isAuto, int byPass)
 	  res = malloc(sizeof(*res));
 	  res->first = key;
 	  res->second = sec;
-	  res->toSave = 0;
+	  byPass = 1;
 	}
 	else
 	{
 	  res = generate_cons(list, key);
-	  res->toSave = !byPass;
+	  printf("Create %s %p\n", res->first, res);
 	}
+      res->toSave = !byPass;
       vecteur_ecrire(list, vecteur_nombre_elements(list), res);
     }
   else if(byPass)
